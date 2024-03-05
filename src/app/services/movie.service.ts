@@ -1,0 +1,24 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MovieService {
+  private apikey: string = '4dc586e79814812a1b1de79d614a518e';
+
+  constructor(private httpClient: HttpClient) {}
+
+  private headers = {
+    headers: new HttpHeaders({
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZGM1ODZlNzk4MTQ4MTJhMWIxZGU3OWQ2MTRhNTE4ZSIsInN1YiI6IjY1ZTZkMWYxZjg1OTU4MDE3YjlhZTJmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0hO8xAV0JfIR8ZHE9xRbFReOhKyXY2NxuMsRaN07a_s',
+    }),
+  };
+
+  public getAllMovies() {
+    const url = `https://api.themoviedb.org/3/movie/latest`;
+
+    return this.httpClient.get<any>(url, this.headers);
+  }
+}
