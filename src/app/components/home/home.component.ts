@@ -8,6 +8,8 @@ import { MovieService } from 'src/app/services/movie.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  public image: string =
+    'https://png.pngtree.com/png-clipart/20190921/original/pngtree-movie-board-icon-png-image_4751062.jpg';
   public data: any = [];
 
   constructor(private router: Router, private movieService: MovieService) {}
@@ -22,5 +24,8 @@ export class HomeComponent {
 
   public redirectToMovieDetailsPage(movieDetail: any) {
     this.router.navigateByUrl(`/movies/${movieDetail.id}`);
+  }
+  public redirectToPeople() {
+    this.router.navigateByUrl(`/people`);
   }
 }

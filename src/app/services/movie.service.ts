@@ -27,4 +27,9 @@ export class MovieService {
 
     return this.httpClient.get<any>(url, this.headers);
   }
+
+  public getAllPeople() {
+    const url = `https://api.themoviedb.org/3/person/popular?language=en-US`;
+    return this.httpClient.get<any>(url, this.headers);
+  }
 }
