@@ -17,7 +17,13 @@ export class MovieService {
   };
 
   public getAllMovies() {
-    const url = `https://api.themoviedb.org/3/movie/latest`;
+    const url = `https://api.themoviedb.org/3/movie/popular?&language=en-US&page=1`;
+
+    return this.httpClient.get<any>(url, this.headers);
+  }
+
+  public getMovieDetails(id: any) {
+    const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
 
     return this.httpClient.get<any>(url, this.headers);
   }
