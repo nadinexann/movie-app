@@ -1,18 +1,123 @@
-<div class="header">
-  <div>
-    <img [src]="image" alt="" style="width: 60px; height: 60px" />
-  </div>
-  <div>Cinematica</div>
-  <div class="home">
-    <img src="" alt="" />
-    <h3>Home</h3>
-  </div>
-  <div class="People">
-    <button (click)="redirectToPeople()">People</button>
-  </div>
-</div>
-<div *ngFor="let movieDetail of data">
-  <h1 (click)="redirectToMovieDetailsPage(movieDetail)">
-    {{ movieDetail.title }}
-  </h1>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style></style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="brand">
+        <img [src]="imageHouse" alt="" style="width: 60px; height: 60px" />
+        <h2>Cinematica</h2>
+      </div>
+      <div class="cards">
+        <div class="home">
+          <div>
+            <img src="" alt="" />
+          </div>
+          <h3>Home</h3>
+        </div>
+        <div class="People" (click)="redirectToPeople()">
+          <div>
+            <img src="" alt="" />
+          </div>
+          <h3>People</h3>
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="grid-container">
+      <div class="welcome">
+        <div><img src="" alt="" /></div>
+        <h1>Welcome, Kasun</h1>
+      </div>
+      <div class="recommended">
+        <h2>Recommended for you</h2>
+      </div>
+      <div class="seeAll">
+        <p>See all</p>
+      </div>
+    </div>
+    <div class="card">
+      <p-carousel
+        [value]="movieData"
+        [numVisible]="5"
+        [numScroll]="5"
+        [circular]="false"
+        [responsiveOptions]="responsiveOptions"
+      >
+        <ng-template let-movieData pTemplate="item">
+          <div class="card">
+            <div
+              [ngStyle]="{
+                background: ' url(' + movieData.image + ')',
+                'background-repeat': 'no-repeat',
+                'background-size': '100%'
+              }"
+              class="wholeCard"
+            >
+              <div></div>
+              <div class="textBox">
+                <h3 class="mt-0 mb-3">
+                  {{ movieData.title }} ({{ movieData.releaseYear }})
+                </h3>
+                <div class="genre">{{ movieData.genreName }}</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="mt-5 flex align-items-center justify-content-center gap-2"
+            ></div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+    <div class="grid-container">
+      <div class="recommended">
+        <h2>Upcoming</h2>
+      </div>
+      <div class="seeAll">
+        <p>See all</p>
+      </div>
+    </div>
+    <div class="latestCard">
+      <p-carousel
+        [value]="latestMovieData"
+        [numVisible]="5"
+        [numScroll]="5"
+        [circular]="false"
+        [responsiveOptions]="responsiveOptions"
+      >
+        <ng-template let-latestMovieData pTemplate="item">
+          <div class="card">
+            <div
+              [ngStyle]="{
+                background: ' url(' + latestMovieData.image + ')',
+                'background-repeat': 'no-repeat',
+                'background-size': '100%'
+              }"
+              class="wholeCard"
+            >
+              <div></div>
+              <div class="textBox">
+                <h3 class="mt-0 mb-3">
+                  {{ latestMovieData.original_title }} ({{
+                    latestMovieData.releaseYear
+                  }})
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="mt-5 flex align-items-center justify-content-center gap-2"
+            ></div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </body>
+</html>

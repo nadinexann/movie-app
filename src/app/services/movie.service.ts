@@ -32,4 +32,16 @@ export class MovieService {
     const url = `https://api.themoviedb.org/3/person/popular?language=en-US`;
     return this.httpClient.get<any>(url, this.headers);
   }
+  public getAllGenres() {
+    const url = `https://api.themoviedb.org/3/genre/movie/list?language=en`;
+    return this.httpClient.get<any>(url, this.headers);
+  }
+  public getAllLatestMovies() {
+    const url = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`;
+    return this.httpClient.get<any>(url, this.headers);
+  }
+  public getPeopleDetails(person_id: any) {
+    const url = `https://api.themoviedb.org/3/person/${person_id}?language=en-US`;
+    return this.httpClient.get<any>(url, this.headers);
+  }
 }
