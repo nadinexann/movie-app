@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MovieService } from 'src/app/services/movie.service';
+import { GenreDetailInterface } from 'src/app/models/genre.detail.model';
+import { ResponsiveOptionsInterface } from 'src/app/models/responsive.option.model';
+import {
+  LatestMovieInterface,
+  MovieDetailInterface,
+  MovieService,
+  PopularMovieInterface,
+} from 'src/app/services/movie.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +15,12 @@ import { MovieService } from 'src/app/services/movie.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  [x: string]: any;
   public imageHouse: string =
     'https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg';
-  public movieData: any = [];
-  public genreData: any = [];
-  public latestMovieData: any = [];
-  responsiveOptions: any[] | undefined;
+  public movieData: MovieDetailInterface[] = [];
+  public genreData: GenreDetailInterface[] = [];
+  public latestMovieData: MovieDetailInterface[] = [];
+  responsiveOptions: ResponsiveOptionsInterface[] | undefined;
 
   constructor(private router: Router, private movieService: MovieService) {}
 
@@ -23,26 +29,24 @@ export class HomeComponent {
       this.genreData = genres;
       console.log(this.genreData);
     });
-    this.movieService.getAllMovies().subscribe(({ results }) => {
-      this.movieData = results.map((element: any) => {
-        return {
-          ...element,
-          image: 'https://image.tmdb.org/t/p/w500/' + element.poster_path,
-          releaseYear: element.release_date.split('-')[0],
-        };
+    this.movieService
+      .getAllMovies()
+      .subscribe(({ results }: PopularMovieInterface) => {
+        this.movieData = this.getImageAndReleaseYear(results);
+        console.log(this.movieData);
       });
-      console.log(this.movieData);
-    });
-    this.movieService.getAllLatestMovies().subscribe((latest) => {
-      this.latestMovieData = latest.results.map((element: any) => {
-        return {
-          ...element,
-          image: 'https://image.tmdb.org/t/p/w500/' + element.poster_path,
-          releaseYear: element.release_date.split('-')[0],
-        };
+    this.movieService
+      .getAllLatestMovies()
+      .subscribe(({ results }: LatestMovieInterface) => {
+        this.latestMovieData = results.map((element: MovieDetailInterface) => {
+          return {
+            ...element,
+            image: 'https://image.tmdb.org/t/p/w500/' + element.poster_path,
+            releaseYear: element.release_date.split('-')[0],
+          };
+        });
+        console.log(this.latestMovieData);
       });
-      console.log(this.latestMovieData);
-    });
     this.responsiveOptions = [
       {
         breakpoint: '1483px',
@@ -67,6 +71,18 @@ export class HomeComponent {
     ];
   }
 
+  private getImageAndReleaseYear(
+    results: MovieDetailInterface
+  ): MovieDetailInterface[] {
+    return results.map((element: MovieDetailInterface) => {
+      return {
+        ...element,
+        image: 'https://image.tmdb.org/t/p/w500/' + element.poster_path,
+        releaseYear: element.release_date.split('-')[0],
+      };
+    });
+  }
+
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
@@ -79,7 +95,7 @@ export class HomeComponent {
     return;
   }
 
-  public redirectToMovieDetailsPage(movieDetail: any) {
+  public redirectToMovieDetailsPage(movieDetail: MovieDetailInterface) {
     this.router.navigateByUrl(`/movies/${movieDetail.id}`);
   }
   public redirectToPeople() {

@@ -1,5 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GenreInterface } from '../models/genre.model';
+import { LatestMovieInterface } from '../models/latest.movie.model';
+import { MovieDetailInterface } from '../models/movie.detail.model';
+import { PeopleDetailInterface } from '../models/people.detail.model';
+import { PeopleInterface } from '../models/people.model';
+import { PopularMovieInterface } from '../models/popular.movie.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,32 +23,35 @@ export class MovieService {
     }),
   };
 
-  public getAllMovies() {
+  public getAllMovies(): Observable<PopularMovieInterface> {
     const url = `https://api.themoviedb.org/3/movie/popular?&language=en-US&page=1`;
 
-    return this.httpClient.get<any>(url, this.headers);
+    return this.httpClient.get<PopularMovieInterface>(url, this.headers);
   }
 
-  public getMovieDetails(id: any) {
+  public getMovieDetails(id: string | null): Observable<MovieDetailInterface> {
     const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
 
-    return this.httpClient.get<any>(url, this.headers);
+    return this.httpClient.get<MovieDetailInterface>(url, this.headers);
   }
 
-  public getAllPeople() {
+  public getAllPeople(): Observable<PeopleInterface> {
     const url = `https://api.themoviedb.org/3/person/popular?language=en-US`;
-    return this.httpClient.get<any>(url, this.headers);
+    return this.httpClient.get<PeopleInterface>(url, this.headers);
   }
-  public getAllGenres() {
+  public getAllGenres(): Observable<GenreInterface> {
     const url = `https://api.themoviedb.org/3/genre/movie/list?language=en`;
-    return this.httpClient.get<any>(url, this.headers);
+    return this.httpClient.get<GenreInterface>(url, this.headers);
   }
-  public getAllLatestMovies() {
+  public getAllLatestMovies(): Observable<LatestMovieInterface> {
     const url = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`;
-    return this.httpClient.get<any>(url, this.headers);
+    return this.httpClient.get<LatestMovieInterface>(url, this.headers);
   }
-  public getPeopleDetails(person_id: any) {
+  public getPeopleDetails(
+    person_id: string
+  ): Observable<PeopleDetailInterface> {
     const url = `https://api.themoviedb.org/3/person/${person_id}?language=en-US`;
-    return this.httpClient.get<any>(url, this.headers);
+    return this.httpClient.get<PeopleDetailInterface>(url, this.headers);
   }
 }
+export { MovieDetailInterface, LatestMovieInterface, PopularMovieInterface };

@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+<div class="header">
+  <div class="brand">
+    <img [src]="" alt="" style="width: 60px; height: 60px" />
+    <h2>{{ appName }}</h2>
+  </div>
+  <div *ngFor="let item of links" class="cards">
+    <div class="home">
+      <div>
+        <img [src]="item.image" alt="" />
+      </div>
+      <h3>{{ item.header }}</h3>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+</div>

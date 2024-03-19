@@ -6,28 +6,7 @@
     <style></style>
   </head>
   <body>
-    <div class="header">
-      <div class="brand">
-        <img [src]="imageHouse" alt="" style="width: 60px; height: 60px" />
-        <h2>Cinematica</h2>
-      </div>
-      <div class="cards">
-        <div class="home" (click)="redirectToHome()">
-          <div>
-            <img src="" alt="" />
-          </div>
-          <h3>Home</h3>
-        </div>
-        <div class="People" (click)="redirectToPeople()">
-          <div>
-            <img src="" alt="" />
-          </div>
-          <h3>People</h3>
-        </div>
-      </div>
-      <div></div>
-      <div></div>
-    </div>
+    <app-navigation></app-navigation>
     <div class="grid-container">
       <div class="recommended">
         <h2>Actors</h2>
@@ -39,6 +18,7 @@
           [numScroll]="5"
           [circular]="false"
           [responsiveOptions]="responsiveOptions"
+
         >
           <ng-template let-data pTemplate="item">
               <div
@@ -47,7 +27,10 @@
                   'background-repeat': 'no-repeat',
                   'background-size': '100%'
                 }"
+
                 class="wholeCard"
+                (click)="redirectToPeopleDetailsPage(data)"
+
               >
               </div>
                 <div></div>

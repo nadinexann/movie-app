@@ -11,6 +11,7 @@ import { MovieDetailPageComponent } from './components/movie-detail-page/movie-d
 import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 import { PeopleComponent } from './components/people/people.component';
 import { PeopleDetailPageComponent } from './components/people-detail-page/people-detail-page.component';
+import { NavigationComponent } from './components/shared/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { PeopleDetailPageComponent } from './components/people-detail-page/peopl
     HomeComponent,
     PeopleComponent,
     PeopleDetailPageComponent,
+    NavigationComponent,
+
   ],
   imports: [
     BrowserModule,
