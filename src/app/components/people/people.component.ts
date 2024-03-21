@@ -58,13 +58,8 @@ export class PeopleComponent {
       },
     ];
   }
-  public redirectToPeople() {
-    this.router.navigateByUrl(`/people`);
-  }
+
   public redirectToPeopleDetailsPage({ id }: any) {
     this.router.navigateByUrl(`/people/${id}`);
-  }
-  public redirectToHome() {
-    this.router.navigateByUrl(``);
   }
 }

@@ -1,17 +1,24 @@
-<h1>{{title}}</h1>
 <div class="header">
-  <div class="brand">
-    <img [src]="" alt="" style="width: 60px; height: 60px" />
-    <h2>{{ appName }}</h2>
-  </div>
+    <img [src]="imageHouse" alt="" style="width: 110px; height: 60px" />
+
+    <span class="p-input-icon-right">
+      <i class="pi pi-search"></i>
+
+      <input type="text"  placeholder="Search" class="p-inputtext-lg"  pInputText [(ngModel)]="value"  />
+
+  </span>
+    <div class="card-container">
   <div *ngFor="let item of links" class="cards">
-    <div class="home">
-      <div>
+    <a
+      class=""
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      [routerLink]="item.link"
+    >
         <img [src]="item.image" alt="" />
-      </div>
-      <h3>{{ item.header }}</h3>
-    </div>
+        <h3>{{ item.header }}</h3>
+    </a>
   </div>
-  <div></div>
-  <div></div>
+</div>
 </div>

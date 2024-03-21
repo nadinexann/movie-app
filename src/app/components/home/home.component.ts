@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { PaginatorState } from 'primeng/paginator';
 import { GenreDetailInterface } from 'src/app/models/genre.detail.model';
 import { ResponsiveOptionsInterface } from 'src/app/models/responsive.option.model';
 import {
@@ -8,6 +9,7 @@ import {
   MovieService,
   PopularMovieInterface,
 } from 'src/app/services/movie.service';
+import { LinkInterface } from '../shared/navigation/navigation.component';
 
 @Component({
   selector: 'app-home',
@@ -15,25 +17,26 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public imageHouse: string =
-    'https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg';
+  first2: number = 1;
+  rows2: number = 4;
+  first: number = 1;
+  rows: number = 4;
+  public data: MovieDetailInterface[] = [];
   public movieData: MovieDetailInterface[] = [];
   public genreData: GenreDetailInterface[] = [];
   public latestMovieData: MovieDetailInterface[] = [];
   responsiveOptions: ResponsiveOptionsInterface[] | undefined;
 
   constructor(private router: Router, private movieService: MovieService) {}
-
   ngOnInit(): void {
     this.movieService.getAllGenres().subscribe(({ genres }) => {
       this.genreData = genres;
-      console.log(this.genreData);
     });
     this.movieService
       .getAllMovies()
       .subscribe(({ results }: PopularMovieInterface) => {
         this.movieData = this.getImageAndReleaseYear(results);
-        console.log(this.movieData);
+        this.onPageChange2({ page: 0, rows: 4, first: 0 });
       });
     this.movieService
       .getAllLatestMovies()
@@ -45,7 +48,6 @@ export class HomeComponent {
             releaseYear: element.release_date.split('-')[0],
           };
         });
-        console.log(this.latestMovieData);
       });
     this.responsiveOptions = [
       {
@@ -83,16 +85,9 @@ export class HomeComponent {
     });
   }
 
-  getSeverity(status: string) {
-    switch (status) {
-      case 'INSTOCK':
-        return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
-        return 'danger';
-    }
-    return;
+  public redirect({ link }: LinkInterface): void {
+    this.router.navigateByUrl(`${link}`);
+    console.log(link);
   }
 
   public redirectToMovieDetailsPage(movieDetail: MovieDetailInterface) {
@@ -101,4 +96,55 @@ export class HomeComponent {
   public redirectToPeople() {
     this.router.navigateByUrl(`/people`);
   }
+
+  redirectedEvent({ id }: MovieDetailInterface) {
+    this.router.navigateByUrl(`/movies/${id}`);
+  }
+  onPageChange2({ page, rows, first }: PaginatorState) {
+    console.log('text');
+    switch (page) {
+      case 0:
+        this.data = this.movieData.slice(0, 4);
+        break;
+      case 1:
+        this.data = this.movieData.slice(4, 8);
+        break;
+      case 2:
+        this.data = this.movieData.slice(8, 12);
+        break;
+      case 3:
+        this.data = this.movieData.slice(12, 16);
+        break;
+      case 4:
+        this.data = this.movieData.slice(16, 20);
+        break;
+    }
+    this.first2 = first as number;
+    this.rows2 = rows as number;
+  }
+  onPageChange({ page, rows, first }: PaginatorState) {
+    console.log('text');
+    switch (page) {
+      case 0:
+        this.data = this.latestMovieData.slice(0, 4);
+        break;
+      case 1:
+        this.data = this.movieData.slice(4, 8);
+        break;
+      case 2:
+        this.data = this.movieData.slice(8, 12);
+        break;
+      case 3:
+        this.data = this.movieData.slice(12, 16);
+        break;
+      case 4:
+        this.data = this.movieData.slice(16, 20);
+        break;
+    }
+    this.first2 = first as number;
+    this.rows2 = rows as number;
+  }
+  parentMessage = 'Featured Today';
+  seeMessage = 'See all';
+  upcomingMessage = 'Upcoming';
 }

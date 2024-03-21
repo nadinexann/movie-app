@@ -1,0 +1,15 @@
+<div class="card" (click)="redirect(data)">
+  <div
+    [ngStyle]="{
+      background: ' url(' + data?.image + ')',
+      'background-repeat': 'no-repeat',
+      'background-size': '100%'
+    }"
+    class="wholeCard"
+  >
+    <div class="textBox">
+      <app-title [title]="data?.title" [releaseYear]="data?.releaseYear"></app-title>
+    </div>
+  </div>
+  <div class="mt-5 flex align-items-center justify-content-center gap-2"></div>
+</div>

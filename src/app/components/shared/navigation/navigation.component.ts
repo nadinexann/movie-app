@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-interface LinkInterface {
-  header: string;
-  image: string;
+import { Component } from '@angular/core';
+export interface LinkInterface {
+  header?: string;
+  image?: string;
+  link: string;
 }
 
 @Component({
@@ -9,25 +10,21 @@ interface LinkInterface {
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit {
-  public appName: string = 'Cinematica';
+export class NavigationComponent {
+  value: string | undefined;
+  public imageHouse: string =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/2560px-IMDB_Logo_2016.svg.png';
+  public appName: string = '';
   public links: LinkInterface[] = [
     {
       header: 'Home',
-      image:
-        '',
+      image: '',
+      link: '',
     },
     {
-      header: 'People',
-      image:
-        '',
+      header: 'Celebs',
+      image: '',
+      link: '/people',
     },
   ];
-
-  @Input() title!: string;
-
-
-  ngOnInit(): void {
-    //here you can console.log and call backend endpoints
-  }
 }

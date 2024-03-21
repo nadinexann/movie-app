@@ -1,104 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style></style>
-  </head>
-  <body>
-    <app-navigation></app-navigation>
-    <div class="grid-container">
-      <div class="welcome">
-        <div><img src="" alt="" /></div>
-        <h1>Welcome, Kasun</h1>
-      </div>
-      <div class="recommended">
-        <h2>Recommended for you</h2>
-      </div>
-      <div class="seeAll">
-        <p>See all</p>
-      </div>
+<app-navigation></app-navigation>
+<div class="flex align-items-center justify-content-end">
+  <span class="mx-1 text-color"> </span>
+
+  <app-greet [message]="parentMessage"> </app-greet>
+  <p-paginator
+    class="paginator"
+    [first]="first2"
+    [rows]="rows2"
+    [totalRecords]="movieData.length"
+    (onPageChange)="onPageChange2($event)"
+    [showCurrentPageReport]="true"
+    [showPageLinks]="false"
+    [showFirstLastIcon]="false"
+  >
+  </p-paginator>
+
+  <section class="sectionUpcoming">
+    <div *ngFor="let item of data">
+      <app-card [data]="item"></app-card>
     </div>
-    <div class="card">
-      <p-carousel
-        [value]="movieData"
-        [numVisible]="5"
-        [numScroll]="5"
-        [circular]="false"
-        [responsiveOptions]="responsiveOptions"
-      >
-        <ng-template let-movieData pTemplate="item">
-          <div class="card">
-            <div
-              [ngStyle]="{
-                background: ' url(' + movieData.image + ')',
-                'background-repeat': 'no-repeat',
-                'background-size': '100%'
-              }"
-              class="wholeCard"
-              (click)="redirectToMovieDetailsPage(movieData)"
-            >
-              <div></div>
-              <div class="textBox">
-                <h3 class="mt-0 mb-3">
-                  {{ movieData.title }} ({{ movieData.releaseYear }})
-                </h3>
-                <div class="genre">{{ movieData.genreName }}</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              class="mt-5 flex align-items-center justify-content-center gap-2"
-            ></div>
-          </div>
-        </ng-template>
-      </p-carousel>
+  </section>
+  <app-greet [upcoming]="upcomingMessage"> </app-greet>
+  <p-paginator
+    class="paginator2"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="latestMovieData.length"
+    (onPageChange)="onPageChange2($event)"
+    [showCurrentPageReport]="true"
+    [showPageLinks]="false"
+    [showFirstLastIcon]="false"
+  >
+  </p-paginator>
+  <section class="sectionUpcoming">
+    <div *ngFor="let item of latestMovieData | slice : 0 : 4">
+      <app-card [data]="item"></app-card>
     </div>
-    <div class="grid-container">
-      <div class="recommended">
-        <h2>Upcoming</h2>
-      </div>
-      <div class="seeAll">
-        <p>See all</p>
-      </div>
-    </div>
-    <div class="latestCard">
-      <p-carousel
-        [value]="latestMovieData"
-        [numVisible]="5"
-        [numScroll]="5"
-        [circular]="false"
-        [responsiveOptions]="responsiveOptions"
-      >
-        <ng-template let-latestMovieData pTemplate="item">
-          <div class="card">
-            <div
-              [ngStyle]="{
-                background: ' url(' + latestMovieData.image + ')',
-                'background-repeat': 'no-repeat',
-                'background-size': '100%'
-              }"
-              class="wholeCard"
-              (click)="redirectToMovieDetailsPage(latestMovieData)"
-            >
-              <div></div>
-              <div class="textBox">
-                <h3 class="mt-0 mb-3">
-                  {{ latestMovieData.original_title }} ({{
-                    latestMovieData.releaseYear
-                  }})
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              class="mt-5 flex align-items-center justify-content-center gap-2"
-            ></div>
-          </div>
-        </ng-template>
-      </p-carousel>
-    </div>
-  </body>
-</html>
+  </section>
+</div>

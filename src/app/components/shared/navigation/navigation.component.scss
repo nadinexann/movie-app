@@ -1,152 +1,27 @@
-.grid-container {
-    display: grid;
-    max-width: 2000px;
-    margin: 0;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: minmax(50px, auto);
-  }
-
-  .header {
+.header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     color: white;
-  }
-
-  .cards {
-    display: flex;
-    gap: 10px;
-    height: 90px;
-  }
-
-  .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(4, 37, 37, 0.637);
-    width: 90px;
-    border-radius: 5px;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  .People {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(15, 82, 82, 0.637);
-    width: 90px;
-    border-radius: 5px;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    cursor: pointer;
-    position: relative;
-  }
-  button {
-    background-color: rgba(15, 82, 82, 0.637);
-    color: white;
-  }
-  body {
-    background: linear-gradient(45deg, pink, teal);
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    margin: 0;
-    padding: 25px;
-  }
-
-  .brand {
-    display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
   }
 
-  .welcome {
+.button {
     display: flex;
-    grid-column: 1/3;
-    grid-row: 1;
-    color: white;
-    font-size: larger;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
+}
+.active {
+    color: white
+}
+a{
+    color:white;
+    text-decoration: none;
+}
+.card-container{
+   display:flex;
+   gap:25px;
+   justify-content: center;
+}
 
-  .movies {
-    display: flex;
-    grid-column: 1/6;
-    grid-row: 3;
-  }
-  .recommended {
-    display: flex;
-    grid-column: 1/3;
-    grid-row: 2;
-    color: white;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  .seeAll {
-    display: flex;
-    color: white;
-    grid-column: 5;
-    grid-row: 2;
-    justify-content: flex-end;
-  }
-  p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 85px;
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 15px;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  .movieImage {
-    border-radius: 10px;
-    width: 250px;
-
-    object-fit: cover;
-  }
-
-  .wholeCard {
-    display: flex;
-    flex-direction: column-reverse;
-    width: 250px;
-    height: 375px;
-    border-radius: 10px;
-  }
-  div.textBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: black;
-    opacity: 0.7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 15px;
-    height: 120px;
-  }
-  div.textBox h3 {
-    color: white;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  .link {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
+input{
+    background-color: rgba(169, 169, 169, 0.164);
+    border-color: transparent
+}

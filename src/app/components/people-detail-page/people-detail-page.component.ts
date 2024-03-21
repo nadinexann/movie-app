@@ -19,15 +19,7 @@ export class PeopleDetailPageComponent {
 
   ngOnInit(): void {}
 
-  public redirectToPeople() {
-    this.router.navigateByUrl(`/people`);
-  }
-
   public redirectToPeopleDetailsPage({ id }: PeopleDetailInterface) {
     this.router.navigateByUrl(`/people/${id}`);
-  }
-
-  public redirectToHome() {
-    this.router.navigateByUrl(``);
   }
 }

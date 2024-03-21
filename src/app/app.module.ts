@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
+import { PaginatorModule } from 'primeng/paginator';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +13,10 @@ import { MovieDetailComponent } from './components/movie-detail/movie-detail.com
 import { PeopleComponent } from './components/people/people.component';
 import { PeopleDetailPageComponent } from './components/people-detail-page/people-detail-page.component';
 import { NavigationComponent } from './components/shared/navigation/navigation.component';
+import { CardComponent } from './components/shared/card/card/card.component';
+import { TitleComponent } from './components/shared/title/title/title.component';
+import { GreetComponent } from './components/shared/greet/greet/greet.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -22,6 +27,9 @@ import { NavigationComponent } from './components/shared/navigation/navigation.c
     PeopleComponent,
     PeopleDetailPageComponent,
     NavigationComponent,
+    CardComponent,
+    TitleComponent,
+    GreetComponent,
 
   ],
   imports: [
@@ -31,6 +39,8 @@ import { NavigationComponent } from './components/shared/navigation/navigation.c
     CarouselModule,
     TagModule,
     ButtonModule,
+    PaginatorModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent],
