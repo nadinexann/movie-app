@@ -1,12 +1,58 @@
 <app-navigation></app-navigation>
-<div class="grid-container">
-  <div class="genre">
-    <h3>Genre</h3>
-  </div>
+<h1>{{ videoData$ |async | json }}</h1>
+<div *ngIf="movieDetails$|async as movieDetails" class="grid-container">
   <div class="movieText">
     <h1>
       {{ movieDetails?.title }}
     </h1>
+    <h3>
+      {{ movieDetails?.releaseYear }} · {{ movieDetails?.hours }}h
+      {{ movieDetails?.minutes }}m
+    </h3>
   </div>
-  <div class="movieImage"></div>
+  <div class="movieImage">
+    <img
+      class="image"
+      [src]="movieDetails?.image"
+      alt=""
+      style="height: 500px"
+    />
+    <video width="320" height="240" controls>
+      <source [src]="movie.mp4" type="video/mp4" />
+    </video>
+    <div class="text">
+      <div class="smallText">
+        <h3>Genre</h3>
+        <div class="input"><h3>genres</h3></div>
+      </div>
+      <div class="smallText">
+        <h3>Plot</h3>
+        <div class="input">
+          <h3>{{ movieDetails?.overview }}</h3>
+        </div>
+      </div>
+      <div class="smallText">
+        <h3>Director</h3>
+        <div class="input"></div>
+      </div>
+      <div class="smallText">
+        <h3>Writers</h3>
+        <div class="input"></div>
+      </div>
+      <div class="smallText">
+        <h3>Stars</h3>
+        <div class="input"></div>
+      </div>
+      <div class="smallText">
+        <h3>Awards</h3>
+        <div class="input"></div>
+      </div>
+      <div class="smallText">
+        <h3>Reviews</h3>
+        <div class="input">
+          <h3>{{ movieDetails?.vote_count }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

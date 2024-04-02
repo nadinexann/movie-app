@@ -1,0 +1,33 @@
+h1 {
+  color: white;
+}
+.text {
+  display: flex;
+  grid-column: 1/6;
+  grid-row:2;
+  flex-direction: column;
+  color: white;
+}
+h3 {
+  color: white;
+}
+.movieImage {
+  display: grid;
+
+  gap: 40px;
+}
+.smallText {
+  display: grid;
+  gap: 50px;
+}
+h4 {
+  color: white;
+}
+.input {
+  grid-column: 2;
+  display: flex;
+}
+video{
+    height: 500px;
+    width: 1000px
+}

@@ -14,27 +14,27 @@
     [showFirstLastIcon]="false"
   >
   </p-paginator>
-
   <section class="sectionUpcoming">
     <div *ngFor="let item of data">
-      <app-card [data]="item"></app-card>
+      <app-card [data]="item" (redirectEvent)="redirectToMovieDetailsPage($event)"></app-card>
     </div>
   </section>
+
   <app-greet [upcoming]="upcomingMessage"> </app-greet>
   <p-paginator
     class="paginator2"
     [first]="first"
     [rows]="rows"
     [totalRecords]="latestMovieData.length"
-    (onPageChange)="onPageChange2($event)"
+    (onPageChange)="onPageChange($event)"
     [showCurrentPageReport]="true"
     [showPageLinks]="false"
     [showFirstLastIcon]="false"
   >
   </p-paginator>
   <section class="sectionUpcoming">
-    <div *ngFor="let item of latestMovieData | slice : 0 : 4">
-      <app-card [data]="item"></app-card>
+    <div *ngFor="let item of latestMovies">
+      <app-card [data]="item" (redirectEvent)="redirectToMovieDetailsPage($event)"></app-card>
     </div>
   </section>
 </div>

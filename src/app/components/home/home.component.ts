@@ -9,7 +9,6 @@ import {
   MovieService,
   PopularMovieInterface,
 } from 'src/app/services/movie.service';
-import { LinkInterface } from '../shared/navigation/navigation.component';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +20,7 @@ export class HomeComponent {
   rows2: number = 4;
   first: number = 1;
   rows: number = 4;
+  public latestMovies: MovieDetailInterface[] = [];
   public data: MovieDetailInterface[] = [];
   public movieData: MovieDetailInterface[] = [];
   public genreData: GenreDetailInterface[] = [];
@@ -41,6 +41,7 @@ export class HomeComponent {
     this.movieService
       .getAllLatestMovies()
       .subscribe(({ results }: LatestMovieInterface) => {
+        this.onPageChange({ page: 0, rows: 4, first: 0 });
         this.latestMovieData = results.map((element: MovieDetailInterface) => {
           return {
             ...element,
@@ -74,7 +75,7 @@ export class HomeComponent {
   }
 
   private getImageAndReleaseYear(
-    results: MovieDetailInterface
+    results: MovieDetailInterface[]
   ): MovieDetailInterface[] {
     return results.map((element: MovieDetailInterface) => {
       return {
@@ -85,9 +86,9 @@ export class HomeComponent {
     });
   }
 
-  public redirect({ link }: LinkInterface): void {
-    this.router.navigateByUrl(`${link}`);
-    console.log(link);
+  public redirect({ id }: MovieDetailInterface): void {
+    this.router.navigateByUrl(`/movies/${id}`);
+    console.log(id);
   }
 
   public redirectToMovieDetailsPage(movieDetail: MovieDetailInterface) {
@@ -126,23 +127,23 @@ export class HomeComponent {
     console.log('text');
     switch (page) {
       case 0:
-        this.data = this.latestMovieData.slice(0, 4);
+        this.latestMovies = this.movieData.slice(16, 20);
         break;
       case 1:
-        this.data = this.movieData.slice(4, 8);
+        this.latestMovies = this.movieData.slice(12, 16);
         break;
       case 2:
-        this.data = this.movieData.slice(8, 12);
+        this.latestMovies = this.movieData.slice(8, 12);
         break;
       case 3:
-        this.data = this.movieData.slice(12, 16);
+        this.latestMovies = this.movieData.slice(4, 8);
         break;
       case 4:
-        this.data = this.movieData.slice(16, 20);
+        this.latestMovies = this.movieData.slice(0, 4);
         break;
     }
-    this.first2 = first as number;
-    this.rows2 = rows as number;
+    this.first = first as number;
+    this.rows = rows as number;
   }
   parentMessage = 'Featured Today';
   seeMessage = 'See all';

@@ -12,28 +12,27 @@ import { MovieService } from 'src/app/services/movie.service';
 export class PeopleComponent {
   public imageHouse: string =
     'https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg';
-  public data: PeopleDetailInterface[] = [];
+  public peopleData: PeopleDetailInterface[] = [];
   responsiveOptions: ResponsiveOptionsInterface[] | undefined;
 
   constructor(private router: Router, private movieService: MovieService) {}
 
   ngOnInit(): void {
-    /*let a, b, c, d, rest;
-    const aki = [10, 20, 30, 40, 50];
-    [a, b, c, ...rest] = aki;
-    [d] = rest
-    console.log(a, b, c, d)
-    console.log([10, 20, 30, 40, 50] == [10, 20, 30, 40, 50])*/
     this.movieService
       .getAllPeople()
       .subscribe(({ results }: PeopleInterface) => {
-        this.data = results.map((element: PeopleDetailInterface) => {
+        this.peopleData = results.map((element: PeopleDetailInterface) => {
+          console.log(element);
           return {
             ...element,
-            image: 'https://image.tmdb.org/t/p/w500/' + element.profile_path,
+            image:
+              'https://image.tmdb.org/t/p/w500' +
+              (element.profile_path === 'null'
+                ? element.profile_path
+                : results[0].profile_path),
           };
         });
-        console.log(this.data);
+        console.log(this.peopleData);
       });
     this.responsiveOptions = [
       {

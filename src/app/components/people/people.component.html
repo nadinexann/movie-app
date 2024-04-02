@@ -5,34 +5,30 @@
   </div>
   <div class="peoples">
     <p-carousel
-      [value]="data"
-      [numVisible]="5"
-      [numScroll]="5"
+      [value]="peopleData"
+      [numVisible]="4"
+      [numScroll]="4"
       [circular]="false"
       [responsiveOptions]="responsiveOptions"
     >
-      <ng-template let-data pTemplate="item">
+      <ng-template let-peopleData pTemplate="item">
         <div
           [ngStyle]="{
-            background: ' url(' + data.image + ')',
+            background: ' url(' + peopleData.image + ')',
             'background-repeat': 'no-repeat',
             'background-size': '100%'
           }"
           class="wholeCard"
-          (click)="redirectToPeopleDetailsPage(data)"
+          (click)="redirectToPeopleDetailsPage(peopleData)"
         ></div>
         <div></div>
         <div class="name">
           <h3 class="mt-0 mb-3">
-            {{ data.name }}
+            {{ peopleData.name }}
           </h3>
         </div>
 
-        <div>
-          <div
-            class="mt-5 flex align-items-center justify-content-center gap-2"
-          ></div>
-        </div>
+        <div></div>
       </ng-template>
     </p-carousel>
   </div>

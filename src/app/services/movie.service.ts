@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GenreInterface } from '../models/genre.model';
 import { LatestMovieInterface } from '../models/latest.movie.model';
 import { MovieDetailInterface } from '../models/movie.detail.model';
+import { MovieVideoInterface } from '../models/movie.video.model';
 import { PeopleDetailInterface } from '../models/people.detail.model';
 import { PeopleInterface } from '../models/people.model';
 import { PopularMovieInterface } from '../models/popular.movie.model';
@@ -53,5 +54,11 @@ export class MovieService {
     const url = `https://api.themoviedb.org/3/person/${person_id}?language=en-US`;
     return this.httpClient.get<PeopleDetailInterface>(url, this.headers);
   }
+  public getMovieVideoDetails(
+    movie_id: string |null
+  ): Observable<MovieVideoInterface> {
+    const url = `https://api.themoviedb.org/3/movie/${movie_id}/videos?language=en-US`;
+    return this.httpClient.get<MovieVideoInterface>(url, this.headers);
+  }
 }
-export { MovieDetailInterface, LatestMovieInterface, PopularMovieInterface };
+export { LatestMovieInterface, MovieDetailInterface, PopularMovieInterface };
