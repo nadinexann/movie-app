@@ -18,4 +18,5 @@ export interface MovieDetailInterface {
   releaseYear?: string;
   hours?: number;
   minutes?: number;
+  videoPlay?: string;
 }

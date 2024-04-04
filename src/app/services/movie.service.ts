@@ -54,10 +54,19 @@ export class MovieService {
     const url = `https://api.themoviedb.org/3/person/${person_id}?language=en-US`;
     return this.httpClient.get<PeopleDetailInterface>(url, this.headers);
   }
+
   public getMovieVideoDetails(
-    movie_id: string |null
+    movie_id: string | null
   ): Observable<MovieVideoInterface> {
     const url = `https://api.themoviedb.org/3/movie/${movie_id}/videos?language=en-US`;
+    return this.httpClient.get<MovieVideoInterface>(url, this.headers);
+  }
+
+  public getVideoDetails(
+    movie_id: string | null,
+    key: string | null
+  ): Observable<MovieVideoInterface> {
+    const url = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${key}&language=en-US`;
     return this.httpClient.get<MovieVideoInterface>(url, this.headers);
   }
 }

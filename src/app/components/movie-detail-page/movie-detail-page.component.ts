@@ -1,24 +1,37 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, concatMap, map, tap } from 'rxjs';
+import { Component, Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { MovieVideoDetailInterface } from 'src/app/models/movie.video.detail.model';
 import { MovieVideoInterface } from 'src/app/models/movie.video.model';
 import { ResponsiveOptionsInterface } from 'src/app/models/responsive.option.model';
 import {
   MovieDetailInterface,
   MovieService,
 } from 'src/app/services/movie.service';
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 @Component({
   selector: 'app-movie-detail-page',
   templateUrl: './movie-detail-page.component.html',
   styleUrls: ['./movie-detail-page.component.scss'],
 })
 export class MovieDetailPageComponent {
+  public movieId: string = '';
   public movieDetails$!: Observable<MovieDetailInterface>;
   public imageHouse: string =
     'https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg';
+  public videoKey: string = '';
   public movieData: MovieDetailInterface[] = [];
+  public videoData: MovieVideoInterface[] = [];
   responsiveOptions: ResponsiveOptionsInterface[] | undefined;
-  public videoData$?: Observable<MovieVideoInterface>;
+  public videoDetails$!: Observable<MovieVideoDetailInterface[]>;
 
   constructor(
     private router: Router,
@@ -27,13 +40,33 @@ export class MovieDetailPageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.movieDetails$ = this.activatedRoute.paramMap.pipe(
-      map((params: ParamMap) => params.get('id')),
-      tap(
-        (id: string | null) =>
-          (this.videoData$ = this.movieService.getMovieVideoDetails(id))
-      ),
-      concatMap((id: string | null) => this.movieService.getMovieDetails(id)),
+    this.movieId = this.activatedRoute.snapshot.params['id'];
+
+    this.movieService
+      .getMovieVideoDetails(this.movieId)
+      .pipe(
+        map(({ results }: MovieVideoInterface) =>
+          results.filter((video) => video.name === 'Official Trailer')
+        ),
+        tap((data: MovieVideoDetailInterface[]) => {
+          const [firstElement] = data;
+          this.videoDetails$ = this.movieService
+            .getVideoDetails(this.movieId, firstElement.key)
+            .pipe(
+              map(({ results }: MovieVideoInterface) =>
+                results.filter((video) => video.name === 'Official Trailer')
+              ),
+              tap((data: MovieVideoDetailInterface[]) => {
+                this.videoKey = data[0].key;
+              })
+            );
+        })
+      )
+      .subscribe();
+
+    this.movieDetails$ = of(this.movieId).pipe(
+      switchMap((id: string | null) => this.movieService.getMovieDetails(id)),
+
       map((movieDetails: MovieDetailInterface) => {
         return {
           ...movieDetails,
@@ -41,6 +74,7 @@ export class MovieDetailPageComponent {
           releaseYear: movieDetails.release_date.split('-')[0],
           hours: Math.floor(movieDetails.runtime / 60),
           minutes: movieDetails.runtime % 60,
+          //videoPlay: `//api.themoviedb.org/3/movie/${movieDetails.id}/videos?api_key=${videoDetails.key}&language=en-US`
         };
       })
     );

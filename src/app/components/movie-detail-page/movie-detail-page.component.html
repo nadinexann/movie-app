@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
-<h1>{{ videoData$ |async | json }}</h1>
-<div *ngIf="movieDetails$|async as movieDetails" class="grid-container">
+
+<div *ngIf="movieDetails$ | async as movieDetails" class="grid-container">
   <div class="movieText">
     <h1>
       {{ movieDetails?.title }}
@@ -17,18 +17,30 @@
       alt=""
       style="height: 500px"
     />
-    <video width="320" height="240" controls>
-      <source [src]="movie.mp4" type="video/mp4" />
-    </video>
+    <ng-container *ngIf="videoDetails$ | async">
+      <iframe
+        controls
+        width="1000"
+        height="500"
+        [src]="'//www.youtube.com/embed/' + videoKey | safe"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        autoplay
+        muted
+      ></iframe>
+    </ng-container>
+
     <div class="text">
       <div class="smallText">
         <h3>Genre</h3>
-        <div class="input"><h3>genres</h3></div>
+        <div class="input"><h4>genres</h4></div>
       </div>
       <div class="smallText">
         <h3>Plot</h3>
         <div class="input">
-          <h3>{{ movieDetails?.overview }}</h3>
+          <h4>{{ movieDetails?.overview }}</h4>
         </div>
       </div>
       <div class="smallText">
@@ -50,7 +62,7 @@
       <div class="smallText">
         <h3>Reviews</h3>
         <div class="input">
-          <h3>{{ movieDetails?.vote_count }}</h3>
+          <h4>{{ movieDetails?.vote_count }}</h4>
         </div>
       </div>
     </div>
