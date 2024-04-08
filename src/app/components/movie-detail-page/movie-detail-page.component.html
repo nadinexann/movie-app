@@ -5,10 +5,10 @@
     <h1>
       {{ movieDetails?.title }}
     </h1>
-    <h3>
+    <h4 class="other">
       {{ movieDetails?.releaseYear }} · {{ movieDetails?.hours }}h
       {{ movieDetails?.minutes }}m
-    </h3>
+    </h4>
   </div>
   <div class="movieImage">
     <img
@@ -35,7 +35,9 @@
     <div class="text">
       <div class="smallText">
         <h3>Genre</h3>
-        <div class="input"><h4>genres</h4></div>
+        <div class="input">
+          <h4>{{ movieDetails.genres | json }}</h4>
+        </div>
       </div>
       <div class="smallText">
         <h3>Plot</h3>
@@ -45,24 +47,31 @@
       </div>
       <div class="smallText">
         <h3>Director</h3>
-        <div class="input"></div>
+        <div class="align">
+          <div class="input" *ngFor="let credit of directors | slice : 0 : 2">
+            {{ credit.original_name }}
+          </div>
+        </div>
       </div>
       <div class="smallText">
         <h3>Writers</h3>
-        <div class="input"></div>
+        <div class="align">
+          <div class="input" *ngFor="let credit of writers | slice : 0 : 2">
+            {{ credit.original_name }}
+          </div>
+        </div>
       </div>
       <div class="smallText">
         <h3>Stars</h3>
-        <div class="input"></div>
-      </div>
-      <div class="smallText">
-        <h3>Awards</h3>
-        <div class="input"></div>
+        <div class="align"></div>
+        <div class="input" *ngFor="let credit of stars | slice : 0 : 2">
+          {{ credit.original_name }}
+        </div>
       </div>
       <div class="smallText">
         <h3>Reviews</h3>
         <div class="input">
-          <h4>{{ movieDetails?.vote_count }}</h4>
+          <h4>{{ movieDetails?.popularity }}</h4>
         </div>
       </div>
     </div>

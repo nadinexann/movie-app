@@ -2,6 +2,8 @@ import { Component, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { MovieCreditDetailInterface } from 'src/app/models/movie.credit.detail.model';
+import { MovieCreditInterface } from 'src/app/models/movie.credit.model';
 import { MovieVideoDetailInterface } from 'src/app/models/movie.video.detail.model';
 import { MovieVideoInterface } from 'src/app/models/movie.video.model';
 import { ResponsiveOptionsInterface } from 'src/app/models/responsive.option.model';
@@ -17,6 +19,7 @@ export class SafePipe implements PipeTransform {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
+
 @Component({
   selector: 'app-movie-detail-page',
   templateUrl: './movie-detail-page.component.html',
@@ -24,6 +27,9 @@ export class SafePipe implements PipeTransform {
 })
 export class MovieDetailPageComponent {
   public movieId: string = '';
+  public directors: MovieCreditDetailInterface[] = [];
+  public writers: MovieCreditDetailInterface[] = [];
+  public stars: MovieCreditDetailInterface[] = [];
   public movieDetails$!: Observable<MovieDetailInterface>;
   public imageHouse: string =
     'https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg';
@@ -32,7 +38,7 @@ export class MovieDetailPageComponent {
   public videoData: MovieVideoInterface[] = [];
   responsiveOptions: ResponsiveOptionsInterface[] | undefined;
   public videoDetails$!: Observable<MovieVideoDetailInterface[]>;
-
+  public creditDetails$!: Observable<MovieCreditDetailInterface[]>;
   constructor(
     private router: Router,
     private movieService: MovieService,
@@ -41,6 +47,21 @@ export class MovieDetailPageComponent {
 
   ngOnInit(): void {
     this.movieId = this.activatedRoute.snapshot.params['id'];
+    this.movieService.getCreditDetails(this.movieId).pipe(
+      tap(({ crew }: MovieCreditInterface) => {
+        this.directors = crew.filter(
+          (director) => director.known_for_department === 'Directing'
+        );
+        console.log(this.directors)
+        this.writers = crew.filter(
+          (writer) => writer.known_for_department === 'Writing'
+        );
+        this.stars = crew.filter(
+          (star) => star.known_for_department === 'Acting'
+        );
+      })
+    ).subscribe()
+
 
     this.movieService
       .getMovieVideoDetails(this.movieId)

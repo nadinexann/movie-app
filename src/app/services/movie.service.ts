@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GenreInterface } from '../models/genre.model';
 import { LatestMovieInterface } from '../models/latest.movie.model';
+import { MovieCreditInterface } from '../models/movie.credit.model';
 import { MovieDetailInterface } from '../models/movie.detail.model';
 import { MovieVideoInterface } from '../models/movie.video.model';
 import { PeopleDetailInterface } from '../models/people.detail.model';
@@ -68,6 +69,12 @@ export class MovieService {
   ): Observable<MovieVideoInterface> {
     const url = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${key}&language=en-US`;
     return this.httpClient.get<MovieVideoInterface>(url, this.headers);
+  }
+  public getCreditDetails(
+    movie_id: string | null
+  ): Observable<MovieCreditInterface> {
+    const url = `https://api.themoviedb.org/3/movie/${movie_id}/credits?language=en-US`;
+    return this.httpClient.get<MovieCreditInterface>(url, this.headers);
   }
 }
 export { LatestMovieInterface, MovieDetailInterface, PopularMovieInterface };

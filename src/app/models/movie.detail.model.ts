@@ -1,7 +1,9 @@
+import { MovieDetailGenreInterface } from './movie.detail.genre.model';
+
 export interface MovieDetailInterface {
   adult: boolean;
   backdrop: string;
-  genre_ids: number[];
+  genres: MovieDetailGenreInterface[];
   id: number;
   original_language: string;
   original_title: string;

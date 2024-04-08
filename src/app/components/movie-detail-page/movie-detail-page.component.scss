@@ -10,29 +10,46 @@ h1 {
 }
 h3 {
   color: white;
-  transition: all 0.3s ease
+  transition: all 0.3s ease;
+  font-size: 100%;
+  width: 90px;
 }
+
 h3:hover {
   color: gold;
   padding-left: 10px;
 }
 .movieImage {
   display: grid;
-
   gap: 40px;
 }
-.smallText {
+.inputStars {
   display: grid;
-  gap: 50px;
+  flex-direction: column;
 }
+.smallText {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+}
+
 h4 {
   color: white;
+  width: 750px;
+  line-height: 1.5rem;
 }
 .input {
   grid-column: 2;
   display: flex;
+
+
 }
 video {
   height: 500px;
   width: 1000px;
+}
+.align{
+  display: flex;
+  gap:15px
 }
