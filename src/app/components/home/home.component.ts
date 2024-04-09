@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaginatorState } from 'primeng/paginator';
 import { GenreDetailInterface } from 'src/app/models/genre.detail.model';
-import { ResponsiveOptionsInterface } from 'src/app/models/responsive.option.model';
 import {
   LatestMovieInterface,
   MovieDetailInterface,
@@ -25,7 +24,7 @@ export class HomeComponent {
   public movieData: MovieDetailInterface[] = [];
   public genreData: GenreDetailInterface[] = [];
   public latestMovieData: MovieDetailInterface[] = [];
-  responsiveOptions: ResponsiveOptionsInterface[] | undefined;
+
 
   constructor(private router: Router, private movieService: MovieService) {}
   ngOnInit(): void {
@@ -50,28 +49,7 @@ export class HomeComponent {
           };
         });
       });
-    this.responsiveOptions = [
-      {
-        breakpoint: '1483px',
-        numVisible: 4,
-        numScroll: 4,
-      },
-      {
-        breakpoint: '1139px',
-        numVisible: 3,
-        numScroll: 3,
-      },
-      {
-        breakpoint: '900px',
-        numVisible: 2,
-        numScroll: 2,
-      },
-      {
-        breakpoint: '635px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
+
   }
 
   private getImageAndReleaseYear(

@@ -3,7 +3,7 @@
     [ngStyle]="{
       background: ' url(' + data?.image + ')',
       'background-repeat': 'no-repeat',
-      'background-size': '100%'
+      'background-size': '100%',
     }"
     class="wholeCard"
   >
@@ -13,6 +13,8 @@
         [releaseYear]="data?.releaseYear"
       ></app-title>
     </div>
+    <div class="floatingItems">
+      <h3> {{data?.vote_count}}</h3>
+    </div>
   </div>
-  <div class="mt-5 flex align-items-center justify-content-center gap-2"></div>
 </div>

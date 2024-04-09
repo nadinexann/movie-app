@@ -11,68 +11,68 @@
     </h4>
   </div>
   <div class="movieImage">
-    <img
-      class="image"
-      [src]="movieDetails?.image"
-      alt=""
-      style="height: 500px"
-    />
-    <ng-container *ngIf="videoDetails$ | async">
-      <iframe
-        controls
-        width="1000"
-        height="500"
-        [src]="'//www.youtube.com/embed/' + videoKey | safe"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        autoplay
-        muted
-      ></iframe>
-    </ng-container>
-
-    <div class="text">
-      <div class="smallText">
-        <h3>Genre</h3>
-        <div class="input">
-          <h4>{{ movieDetails.genres | json }}</h4>
+    <div class="image">
+      <img [src]="movieDetails?.image" alt="" style="height:500px" />
+    </div>
+    <div class="container">
+      <ng-container *ngIf="videoDetails$ | async">
+        <iframe
+          class="responsive-iframe"
+          controls
+          width="1000"
+          height="500"
+          [src]="'//www.youtube.com/embed/' + videoKey | safe"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          autoplay
+          muted
+        ></iframe>
+      </ng-container>
+    </div>
+  </div>
+  <div class="text">
+    <div class="smallText">
+      <h3>Genre</h3>
+      <div class="input">
+        <h4>{{ movieDetails.genres | json }}</h4>
+      </div>
+    </div>
+    <div class="smallText">
+      <h3>Plot</h3>
+      <div class="input">
+        <h4>{{ movieDetails?.overview }}</h4>
+      </div>
+    </div>
+    <div class="smallText">
+      <h3>Director</h3>
+      <div class="align">
+        <div class="input" *ngFor="let credit of directors | slice : 0 : 1">
+          {{ credit.original_name }}
         </div>
       </div>
-      <div class="smallText">
-        <h3>Plot</h3>
-        <div class="input">
-          <h4>{{ movieDetails?.overview }}</h4>
+    </div>
+    <div class="smallText">
+      <h3>Writers</h3>
+      <div class="align">
+        <div class="input" *ngFor="let credit of writers | slice : 0 : 2">
+          {{ credit.original_name }}
         </div>
       </div>
-      <div class="smallText">
-        <h3>Director</h3>
-        <div class="align">
-          <div class="input" *ngFor="let credit of directors | slice : 0 : 2">
-            {{ credit.original_name }}
-          </div>
-        </div>
-      </div>
-      <div class="smallText">
-        <h3>Writers</h3>
-        <div class="align">
-          <div class="input" *ngFor="let credit of writers | slice : 0 : 2">
-            {{ credit.original_name }}
-          </div>
-        </div>
-      </div>
-      <div class="smallText">
-        <h3>Stars</h3>
-        <div class="align"></div>
+    </div>
+    <div class="smallText">
+      <h3>Stars</h3>
+      <div class="align">
         <div class="input" *ngFor="let credit of stars | slice : 0 : 2">
           {{ credit.original_name }}
         </div>
       </div>
-      <div class="smallText">
-        <h3>Reviews</h3>
-        <div class="input">
-          <h4>{{ movieDetails?.popularity }}</h4>
-        </div>
+    </div>
+    <div class="smallText">
+      <h3>Reviews</h3>
+      <div class="input">
+        <h4>{{ movieDetails?.popularity }}</h4>
       </div>
     </div>
   </div>

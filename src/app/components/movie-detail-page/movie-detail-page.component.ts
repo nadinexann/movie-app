@@ -2,6 +2,7 @@ import { Component, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { GenreDetailInterface } from 'src/app/models/genre.detail.model';
 import { MovieCreditDetailInterface } from 'src/app/models/movie.credit.detail.model';
 import { MovieCreditInterface } from 'src/app/models/movie.credit.model';
 import { MovieVideoDetailInterface } from 'src/app/models/movie.video.detail.model';
@@ -47,22 +48,23 @@ export class MovieDetailPageComponent {
 
   ngOnInit(): void {
     this.movieId = this.activatedRoute.snapshot.params['id'];
-    this.movieService.getCreditDetails(this.movieId).pipe(
-      tap(({ crew }: MovieCreditInterface) => {
-        this.directors = crew.filter(
-          (director) => director.known_for_department === 'Directing'
-        );
-        console.log(this.directors)
-        this.writers = crew.filter(
-          (writer) => writer.known_for_department === 'Writing'
-        );
-        this.stars = crew.filter(
-          (star) => star.known_for_department === 'Acting'
-        );
-      })
-    ).subscribe()
-
-
+    this.movieService
+      .getCreditDetails(this.movieId)
+      .pipe(
+        tap(({ crew }: MovieCreditInterface) => {
+          this.directors = crew.filter(
+            (director) => director.known_for_department === 'Directing'
+          );
+          console.log(this.directors);
+          this.writers = crew.filter(
+            (writer) => writer.known_for_department === 'Writing'
+          );
+          this.stars = crew.filter(
+            (star) => star.known_for_department === 'Acting'
+          );
+        })
+      )
+      .subscribe();
     this.movieService
       .getMovieVideoDetails(this.movieId)
       .pipe(
@@ -95,7 +97,7 @@ export class MovieDetailPageComponent {
           releaseYear: movieDetails.release_date.split('-')[0],
           hours: Math.floor(movieDetails.runtime / 60),
           minutes: movieDetails.runtime % 60,
-          //videoPlay: `//api.themoviedb.org/3/movie/${movieDetails.id}/videos?api_key=${videoDetails.key}&language=en-US`
+
         };
       })
     );

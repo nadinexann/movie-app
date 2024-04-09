@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 <div class="flex align-items-center justify-content-end">
   <span class="mx-1 text-color"> </span>
-
+<div class="header">
   <app-greet [message]="parentMessage"> </app-greet>
   <p-paginator
     class="paginator"
@@ -13,13 +13,13 @@
     [showPageLinks]="false"
     [showFirstLastIcon]="false"
   >
-  </p-paginator>
+  </p-paginator></div>
   <section class="sectionUpcoming">
     <div *ngFor="let item of data">
       <app-card [data]="item" (redirectEvent)="redirectToMovieDetailsPage($event)"></app-card>
     </div>
   </section>
-
+<div class="header">
   <app-greet [upcoming]="upcomingMessage"> </app-greet>
   <p-paginator
     class="paginator2"
@@ -32,6 +32,7 @@
     [showFirstLastIcon]="false"
   >
   </p-paginator>
+</div>
   <section class="sectionUpcoming">
     <div *ngFor="let item of latestMovies">
       <app-card [data]="item" (redirectEvent)="redirectToMovieDetailsPage($event)"></app-card>
